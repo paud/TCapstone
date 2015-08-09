@@ -1,7 +1,7 @@
 # Capstone for Delphi
 
 Delphi/Free Pascal Unit to use the [Capstone Disassembler Library](http://www.capstone-engine.org/).
-This Unit has been test with Free Pascal 2.6.4 and Delphi XE3.
+This Unit has been tested with Free Pascal 2.6.4 and Delphi XE3.
 
 I didn't try it on Linux, I even don't know if the Capstone library is available for Linux.
 But there is no reason why it should not run on Linux, it does not use anything Windows specific.
