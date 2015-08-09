@@ -3,6 +3,8 @@
 Delphi/Free Pascal Unit to use the [Capstone Disassembler Library](http://www.capstone-engine.org/).
 This Unit has been test with Free Pascal 2.6.4 and Delphi XE3.
 
+[Sad Sam](https://0x2a.wtf/projects/sad) uses this unit to disassemble binaries.
+
 ## Usage
 
 Included is the wrapper class `TCapstone` in `Capstone.pas`. The example bellow 
