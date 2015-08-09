@@ -36,3 +36,7 @@ is incomplete, but it may give you an impression how to use it.
         disasm.Free;
       end;
     end;
+
+## Screenshot
+
+![Capstone](http://0x2a.wtf/content/projects/capstone.png "Capstone test program output")
