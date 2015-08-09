@@ -14,12 +14,12 @@ begin
   if ParamCount = 0 then begin
     WriteLn('test <filename>');
     Halt(1);
-	end;
+  end;
   filename := ParamStr(1);
   if not FileExists(filename) then begin
     WriteLn(Format('File %s not found', [filename]));
     Halt(1);
-	end;
+  end;
   fs := TFileStream.Create(filename, fmOpenRead);
   try
     fs.Position := 0;
@@ -42,10 +42,11 @@ begin
       finally
         disasm.Free;
       end;
-		finally
+    finally
       stream.Free;
-		end;
-	finally
-	end;
+    end;
+  finally
+    fs.Free;
+  end;
 end.
 
