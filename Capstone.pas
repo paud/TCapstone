@@ -13,11 +13,11 @@ unit Capstone;
 interface
 
 uses
-  SysUtils, Windows, Classes, CapstoneApi, CapstoneCmn;
+  SysUtils, Classes, CapstoneApi, CapstoneCmn;
 
 type
   TCsInsn = record
-    id: DWORD;
+    id: Cardinal;
     address: Int64;
     size: Word;
     bytes: array[0..15] of Byte;
@@ -144,7 +144,7 @@ end;
 
 function TCapstone.GetNext(var AAddr: Int64; var AInsn: TCsInsn): boolean;
 var
-  size: DWORD_PTR;
+  size: NativeUInt;
 //  err: cs_err;
 begin
   if FHandle = 0 then
@@ -160,7 +160,7 @@ begin
   AInsn.mnemonic := '';
   AInsn.op_str := '';
 
-  size := DWORD_PTR(FSize);
+  size := NativeUInt(FSize);
   Result := cs_disasm_iter(FHandle, FCode, size, AAddr, FInsn);
   FSize := size;
   if Result then begin

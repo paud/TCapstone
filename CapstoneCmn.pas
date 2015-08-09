@@ -2,9 +2,6 @@ unit CapstoneCmn;
 
 interface
 
-uses
-	SysUtils, Classes;
-
 type
   TCsArch = (
     csaARM,

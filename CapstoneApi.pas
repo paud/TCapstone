@@ -12,14 +12,14 @@ unit CapstoneApi;
 interface
 
 uses
-  SysUtils, Windows, CapstoneX86, CapstoneArm64, CapstoneArm, CapstoneMips,
+  SysUtils, CapstoneX86, CapstoneArm64, CapstoneArm, CapstoneMips,
   CapstonePpc, CapstoneSparc, CapstoneSystemZ, CapstoneXCore;
 
 const
   LIB_FILE = 'capstone.dll';
 
 type
-  csh = DWORD_PTR;
+  csh = UInt64;
   Pcsh = ^csh;
 
   // Architecture type
@@ -38,7 +38,7 @@ type
 
 type
   // Mode type
-  cs_mode = DWORD;
+  cs_mode = Cardinal;
 
 const
   CS_MODE_LITTLE_ENDIAN = 0;      // little-endian mode (default mode)
@@ -121,7 +121,7 @@ type
   end;
 
   cs_insn = record
-    id: DWORD;
+    id: Cardinal;
     address: UInt64;
     size: Word;
     bytes: array[0..15] of Byte;
@@ -167,7 +167,7 @@ type
  NOTE: if you only care about returned value, but not major and minor values,
  set both @major & @minor arguments to NULL.
 }
-function cs_version(var major, minor: integer): DWORD; cdecl external LIB_FILE;
+function cs_version(var major, minor: integer): Cardinal; cdecl external LIB_FILE;
 
 {
  This API can be used to either ask for archs supported by this library,
@@ -194,7 +194,7 @@ function cs_support(query: integer): boolean; cdecl external LIB_FILE;
  @return CS_ERR_OK on success, or other value on failure (refer to cs_err enum
  for detailed error).
 }
-function cs_open(arch: DWORD; mode: DWORD; handle: Pcsh): cs_err; cdecl external LIB_FILE;
+function cs_open(arch: Cardinal; mode: Cardinal; handle: Pcsh): cs_err; cdecl external LIB_FILE;
 
 {
  Close CS handle: MUST do to release the handle when it is not used anymore.
@@ -226,7 +226,7 @@ function cs_close(var handle: csh): cs_err; cdecl; external LIB_FILE;
  so that cs_option(handle, CS_OPT_MEM, value) can (i.e must) be called
  even before cs_open()
 }
-function cs_option(handle: csh; _type: cs_opt_type; value: DWORD_PTR): cs_err; cdecl external LIB_FILE;
+function cs_option(handle: csh; _type: cs_opt_type; value: NativeUInt): cs_err; cdecl external LIB_FILE;
 
 {
  Report the last error number when some API function fail.
@@ -282,10 +282,10 @@ function cs_strerror(code: cs_err): PansiChar; cdecl external LIB_FILE;
  On failure, call cs_errno() for error code.
 }
 function cs_disasm(handle: csh;
-  const code: Pointer; size: DWORD_PTR;
+  const code: Pointer; size: NativeUInt;
   address: Int64;
-  count: DWORD_PTR;
-  var insn: array of Pcs_insn): DWORD_PTR; cdecl external LIB_FILE;
+  count: NativeUInt;
+  var insn: array of Pcs_insn): NativeUInt; cdecl external LIB_FILE;
 
 {
  Free memory allocated by cs_malloc() or cs_disasm() (argument @insn)
@@ -294,7 +294,7 @@ function cs_disasm(handle: csh;
  @count: number of cs_insn structures returned by cs_disasm(), or 1
      to free memory allocated by cs_malloc().
 }
-procedure cs_free(insn: Pcs_insn; count: DWORD_PTR); cdecl external LIB_FILE;
+procedure cs_free(insn: Pcs_insn; count: NativeUInt); cdecl external LIB_FILE;
 
 {
  Allocate memory for 1 instruction to be used by cs_disasm_iter().
@@ -342,7 +342,7 @@ function cs_malloc(handle: csh): Pcs_insn; cdecl external LIB_FILE;
  On failure, call cs_errno() for error code.
 }
 function cs_disasm_iter(handle: csh;
-  var code: Pointer; var size: DWORD_PTR;
+  var code: Pointer; var size: NativeUInt;
   var address: Int64; insn: Pcs_insn): boolean; cdecl external LIB_FILE;
 
 {
@@ -358,7 +358,7 @@ function cs_disasm_iter(handle: csh;
 
  @return: string name of the register, or NULL if @reg_id is invalid.
 }
-function cs_reg_name(handle: csh; reg_id: DWORD): PAnsiChar; cdecl external LIB_FILE;
+function cs_reg_name(handle: csh; reg_id: Cardinal): PAnsiChar; cdecl external LIB_FILE;
 
 {
  Return friendly name of an instruction in a string.
@@ -372,7 +372,7 @@ function cs_reg_name(handle: csh; reg_id: DWORD): PAnsiChar; cdecl external LIB_
 
  @return: string name of the instruction, or NULL if @insn_id is invalid.
 }
-function cs_insn_name(handle: csh; insn_id: DWORD): PAnsiChar; cdecl external LIB_FILE;
+function cs_insn_name(handle: csh; insn_id: Cardinal): PAnsiChar; cdecl external LIB_FILE;
 
 {
  Return friendly name of a group id (that an instruction can belong to)
@@ -386,7 +386,7 @@ function cs_insn_name(handle: csh; insn_id: DWORD): PAnsiChar; cdecl external LI
 
  @return: string name of the group, or NULL if @group_id is invalid.
 }
-function cs_group_name(handle: csh; group_id: DWORD): PAnsiChar; cdecl external LIB_FILE;
+function cs_group_name(handle: csh; group_id: Cardinal): PAnsiChar; cdecl external LIB_FILE;
 
 {
  Check if a disassembled instruction belong to a particular group.
@@ -404,7 +404,7 @@ function cs_group_name(handle: csh; group_id: DWORD): PAnsiChar; cdecl external 
 
  @return: true if this instruction indeed belongs to aboved group, or false otherwise.
 }
-function cs_insn_group(handle: csh; const insn: Pcs_insn; group_id: DWORD): boolean; cdecl external LIB_FILE;
+function cs_insn_group(handle: csh; const insn: Pcs_insn; group_id: Cardinal): boolean; cdecl external LIB_FILE;
 
 {
  Check if a disassembled instruction IMPLICITLY used a particular register.
@@ -421,7 +421,7 @@ function cs_insn_group(handle: csh; const insn: Pcs_insn; group_id: DWORD): bool
 
  @return: true if this instruction indeed implicitly used aboved register, or false otherwise.
 }
-function cs_reg_read(handle: csh; const insn: Pcs_insn; reg_id: DWORD): boolean; cdecl external LIB_FILE;
+function cs_reg_read(handle: csh; const insn: Pcs_insn; reg_id: Cardinal): boolean; cdecl external LIB_FILE;
 
 {
  Check if a disassembled instruction IMPLICITLY modified a particular register.
@@ -438,7 +438,7 @@ function cs_reg_read(handle: csh; const insn: Pcs_insn; reg_id: DWORD): boolean;
 
  @return: true if this instruction indeed implicitly modified aboved register, or false otherwise.
 }
-function cs_reg_write(handle: csh; const insn: Pcs_insn; reg_id: DWORD): boolean; cdecl external LIB_FILE;
+function cs_reg_write(handle: csh; const insn: Pcs_insn; reg_id: Cardinal): boolean; cdecl external LIB_FILE;
 
 {
  Count the number of operands of a given type.
@@ -453,7 +453,7 @@ function cs_reg_write(handle: csh; const insn: Pcs_insn; reg_id: DWORD): boolean
  @return: number of operands of given type @op_type in instruction @insn,
  or -1 on failure.
 }
-function cs_op_count(handle: csh; const insn: Pcs_insn; op_type: DWORD): integer; cdecl external LIB_FILE;
+function cs_op_count(handle: csh; const insn: Pcs_insn; op_type: Cardinal): integer; cdecl external LIB_FILE;
 
 {
  Retrieve the position of operand of given type in <arch>.operands[] array.
@@ -471,14 +471,14 @@ function cs_op_count(handle: csh; const insn: Pcs_insn; op_type: DWORD): integer
  @return: index of operand of given type @op_type in <arch>.operands[] array
  in instruction @insn, or -1 on failure.
 }
-function cs_op_index(handle: csh; const insn: Pcs_insn; op_type: DWORD; position: DWORD): integer; cdecl external LIB_FILE;
+function cs_op_index(handle: csh; const insn: Pcs_insn; op_type: Cardinal; position: Cardinal): integer; cdecl external LIB_FILE;
 
 // Calculate relative address for X86-64, given cs_insn structure
-function X86_REL_ADDR(insn: cs_insn): ULONGLONG;
+function X86_REL_ADDR(insn: cs_insn): UInt64;
 
 implementation
 
-function X86_REL_ADDR(insn: cs_insn): ULONGLONG;
+function X86_REL_ADDR(insn: cs_insn): UInt64;
 begin
 	Result := insn.address + insn.size + insn.detail^.x86.disp;
 end;
