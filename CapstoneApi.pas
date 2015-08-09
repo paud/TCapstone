@@ -16,7 +16,11 @@ uses
   CapstonePpc, CapstoneSparc, CapstoneSystemZ, CapstoneXCore;
 
 const
+{$ifdef Linux}
+  LIB_FILE = 'libcapstone.so';
+{$else}
   LIB_FILE = 'capstone.dll';
+{$endif}
 
 type
   csh = UInt64;
