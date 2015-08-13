@@ -63,7 +63,6 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <Debugger_RunParams>testcode.bin</Debugger_RunParams>
-        <Debugger_CWD>c:\Users\Stefan Ascher\Documents\Projects\Capstone\</Debugger_CWD>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
