@@ -33,16 +33,16 @@ type
     FArch: TCsArch;
     FMode: TCsMode;
     FCode: Pointer;
-    FSize: Int64;
+    FSize: NativeUInt;
     FInsn: Pcs_insn;
     FDetails: boolean;
     FSyntax: TCsSyntax;
   public
     constructor Create;
     destructor Destroy; override;
-    function Open(ACode: Pointer; ASize: Int64): cs_err;
+    function Open(ACode: Pointer; ASize: NativeUInt): cs_err;
     procedure Close;
-    function GetNext(var AAddr: Int64; var AInsn: TCsInsn): boolean;
+    function GetNext(var AAddr: UInt64; out AInsn: TCsInsn): boolean;
     function GetDetail(out AInsn: cs_insn; out ADetail: cs_detail): boolean;
   published
     property Arch: TCsArch read FArch write FArch default csaUnknown;
@@ -71,7 +71,7 @@ begin
   inherited;
 end;
 
-function TCapstone.Open(ACode: Pointer; ASize: Int64): cs_err;
+function TCapstone.Open(ACode: Pointer; ASize: NativeUInt): cs_err;
 var
   h: csh;
   dMode: integer;
@@ -142,10 +142,7 @@ begin
   	Result := false;
 end;
 
-function TCapstone.GetNext(var AAddr: Int64; var AInsn: TCsInsn): boolean;
-var
-  size: NativeUInt;
-//  err: cs_err;
+function TCapstone.GetNext(var AAddr: UInt64; out AInsn: TCsInsn): boolean;
 begin
   if FHandle = 0 then
     Exit(false);
@@ -160,9 +157,7 @@ begin
   AInsn.mnemonic := '';
   AInsn.op_str := '';
 
-  size := NativeUInt(FSize);
-  Result := cs_disasm_iter(FHandle, FCode, size, AAddr, FInsn);
-  FSize := size;
+  Result := cs_disasm_iter(FHandle, FCode, FSize, AAddr, FInsn);
   if Result then begin
     AInsn.id := FInsn^.id;
     AInsn.address := FInsn^.address;

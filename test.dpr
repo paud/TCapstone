@@ -1,14 +1,14 @@
 program test;
+{$APPTYPE CONSOLE}
 
 uses
   SysUtils, Classes, Capstone, CapstoneCmn, CapstoneApi;
 
 var
   disasm: TCapstone;
-  addr: Int64;
+  addr: UInt64;
   insn: TCsInsn;
   stream: TMemoryStream;
-  fs: TFileStream;
   filename: string;
 begin
   if ParamCount = 0 then begin
@@ -20,33 +20,27 @@ begin
     WriteLn(Format('File %s not found', [filename]));
     Halt(1);
   end;
-  fs := TFileStream.Create(filename, fmOpenRead);
+  stream := TMemoryStream.Create;
   try
-    fs.Position := 0;
-    stream := TMemoryStream.Create;
+    stream.LoadFromFile(filename);
+    stream.Position := 0;
+    disasm := TCapstone.Create;
     try
-      stream.LoadFromStream(fs);
-      stream.Position := 0;
-      disasm := TCapstone.Create;
-      try
-        disasm.Mode := [csm32];
-        disasm.Arch := csaX86;
-        addr := 0;
-        if disasm.Open(stream.Memory, stream.Size) = CS_ERR_OK then begin
-          while disasm.GetNext(addr, insn) do begin
-            WriteLn(Format('%x  %s %s', [addr, insn.mnemonic, insn.op_str]));
-          end;
-        end else begin
-          WriteLn('ERROR!');
+      disasm.Mode := [csm32];
+      disasm.Arch := csaX86;
+      addr := 0;
+      if disasm.Open(stream.Memory, stream.Size) = CS_ERR_OK then begin
+        while disasm.GetNext(addr, insn) do begin
+          WriteLn(Format('%x  %s %s', [addr, insn.mnemonic, insn.op_str]));
         end;
-      finally
-        disasm.Free;
+      end else begin
+        WriteLn('ERROR!');
       end;
     finally
-      stream.Free;
+      disasm.Free;
     end;
   finally
-    fs.Free;
+    stream.Free;
   end;
 end.
 

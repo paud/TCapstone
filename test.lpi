@@ -54,6 +54,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="testcode.bin"/>
       </local>
     </RunParams>
     <Units Count="1">

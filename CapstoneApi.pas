@@ -23,7 +23,7 @@ const
 {$endif}
 
 type
-  csh = UInt64;
+  csh = NativeUInt;
   Pcsh = ^csh;
 
   // Architecture type
@@ -287,7 +287,7 @@ function cs_strerror(code: cs_err): PansiChar; cdecl external LIB_FILE;
 }
 function cs_disasm(handle: csh;
   const code: Pointer; size: NativeUInt;
-  address: Int64;
+  address: UInt64;
   count: NativeUInt;
   var insn: array of Pcs_insn): NativeUInt; cdecl external LIB_FILE;
 
@@ -347,7 +347,7 @@ function cs_malloc(handle: csh): Pcs_insn; cdecl external LIB_FILE;
 }
 function cs_disasm_iter(handle: csh;
   var code: Pointer; var size: NativeUInt;
-  var address: Int64; insn: Pcs_insn): boolean; cdecl external LIB_FILE;
+  var address: UInt64; insn: Pcs_insn): boolean; cdecl external LIB_FILE;
 
 {
  Return friendly name of regiser in a string.
