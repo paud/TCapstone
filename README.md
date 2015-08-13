@@ -8,6 +8,10 @@ versions of Lazarus (0.9.30.4-6) and Free Pascal (2.6.0) with no problems.
 
 [Sad Sam](https://0x2a.wtf/projects/sad) uses this unit to disassemble binaries.
 
+## License
+
+BSD
+
 ## Usage
 
 Included is the wrapper class `TCapstone` in `Capstone.pas`. The example bellow 
