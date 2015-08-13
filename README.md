@@ -54,7 +54,7 @@ Lazarus
 : To compile the Test program, open the file `test.lpi` in [Lazarus](http://www.lazarus-ide.org/) and click Start -> Compile.
 
 Delphi
-: Rename `test.pas` to `test.dpr`, open it in Delphi and click Compile.
+: Open `test.dpr` or `test.dproj` in Delphi and click Compile.
 
 ## Screenshot
 
