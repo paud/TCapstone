@@ -125,10 +125,14 @@ end;
 
 procedure TCapstone.Close;
 begin
-  if FInsn <> nil then
+  if FInsn <> nil then begin
     cs_free(FInsn, 1);
-  if FHandle <> 0 then
+    FInsn := nil;
+  end;
+  if FHandle <> 0 then begin
     cs_close(FHandle);
+    FHandle := 0;
+  end;
 end;
 
 function TCapstone.GetDetail(out AInsn: cs_insn; out ADetail: cs_detail): boolean;
