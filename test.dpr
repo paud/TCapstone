@@ -1,5 +1,9 @@
 program test;
-{$APPTYPE CONSOLE}
+
+{$ifdef MSWINDOWS}
+  {$apptype CONSOLE}
+  {$R *.res}
+{$endif}
 
 uses
   SysUtils, Classes, Capstone, CapstoneCmn, CapstoneApi;
