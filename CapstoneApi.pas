@@ -171,7 +171,7 @@ type
  NOTE: if you only care about returned value, but not major and minor values,
  set both @major & @minor arguments to NULL.
 }
-function cs_version(var major, minor: integer): Cardinal; cdecl external LIB_FILE;
+function cs_version(var major, minor: integer): Cardinal; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  This API can be used to either ask for archs supported by this library,
@@ -186,7 +186,7 @@ function cs_version(var major, minor: integer): Cardinal; cdecl external LIB_FIL
 
  @return True if this library supports the given arch, or in 'diet' mode.
 }
-function cs_support(query: integer): boolean; cdecl external LIB_FILE;
+function cs_support(query: integer): boolean; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Initialize CS handle: this must be done before any usage of CS.
@@ -198,7 +198,7 @@ function cs_support(query: integer): boolean; cdecl external LIB_FILE;
  @return CS_ERR_OK on success, or other value on failure (refer to cs_err enum
  for detailed error).
 }
-function cs_open(arch: Cardinal; mode: Cardinal; handle: Pcsh): cs_err; cdecl external LIB_FILE;
+function cs_open(arch: Cardinal; mode: Cardinal; handle: Pcsh): cs_err; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Close CS handle: MUST do to release the handle when it is not used anymore.
@@ -214,7 +214,7 @@ function cs_open(arch: Cardinal; mode: Cardinal; handle: Pcsh): cs_err; cdecl ex
  @return CS_ERR_OK on success, or other value on failure (refer to cs_err enum
  for detailed error).
 }
-function cs_close(var handle: csh): cs_err; cdecl; external LIB_FILE;
+function cs_close(var handle: csh): cs_err; cdecl; external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Set option for disassembling engine at runtime
@@ -230,7 +230,7 @@ function cs_close(var handle: csh): cs_err; cdecl; external LIB_FILE;
  so that cs_option(handle, CS_OPT_MEM, value) can (i.e must) be called
  even before cs_open()
 }
-function cs_option(handle: csh; _type: cs_opt_type; value: NativeUInt): cs_err; cdecl external LIB_FILE;
+function cs_option(handle: csh; _type: cs_opt_type; value: NativeUInt): cs_err; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Report the last error number when some API function fail.
@@ -240,7 +240,7 @@ function cs_option(handle: csh; _type: cs_opt_type; value: NativeUInt): cs_err; 
 
  @return: error code of cs_err enum type (CS_ERR_*, see above)
 }
-function cs_errno(handle: csh): cs_err; cdecl external LIB_FILE;
+function cs_errno(handle: csh): cs_err; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Return a string describing given error code.
@@ -250,7 +250,7 @@ function cs_errno(handle: csh): cs_err; cdecl external LIB_FILE;
  @return: returns a pointer to a string that describes the error code
   passed in the argument @code
 }
-function cs_strerror(code: cs_err): PansiChar; cdecl external LIB_FILE;
+function cs_strerror(code: cs_err): PansiChar; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Disassemble binary code, given the code buffer, size, address and number
@@ -289,7 +289,7 @@ function cs_disasm(handle: csh;
   const code: Pointer; size: NativeUInt;
   address: UInt64;
   count: NativeUInt;
-  var insn: array of Pcs_insn): NativeUInt; cdecl external LIB_FILE;
+  var insn: array of Pcs_insn): NativeUInt; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Free memory allocated by cs_malloc() or cs_disasm() (argument @insn)
@@ -298,7 +298,7 @@ function cs_disasm(handle: csh;
  @count: number of cs_insn structures returned by cs_disasm(), or 1
      to free memory allocated by cs_malloc().
 }
-procedure cs_free(insn: Pcs_insn; count: NativeUInt); cdecl external LIB_FILE;
+procedure cs_free(insn: Pcs_insn; count: NativeUInt); cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Allocate memory for 1 instruction to be used by cs_disasm_iter().
@@ -308,7 +308,7 @@ procedure cs_free(insn: Pcs_insn; count: NativeUInt); cdecl external LIB_FILE;
  NOTE: when no longer in use, you can reclaim the memory allocated for
  this instruction with cs_free(insn, 1)
 }
-function cs_malloc(handle: csh): Pcs_insn; cdecl external LIB_FILE;
+function cs_malloc(handle: csh): Pcs_insn; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Fast API to disassemble binary code, given the code buffer, size, address
@@ -347,7 +347,7 @@ function cs_malloc(handle: csh): Pcs_insn; cdecl external LIB_FILE;
 }
 function cs_disasm_iter(handle: csh;
   var code: Pointer; var size: NativeUInt;
-  var address: UInt64; insn: Pcs_insn): boolean; cdecl external LIB_FILE;
+  var address: UInt64; insn: Pcs_insn): boolean; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Return friendly name of regiser in a string.
@@ -362,7 +362,7 @@ function cs_disasm_iter(handle: csh;
 
  @return: string name of the register, or NULL if @reg_id is invalid.
 }
-function cs_reg_name(handle: csh; reg_id: Cardinal): PAnsiChar; cdecl external LIB_FILE;
+function cs_reg_name(handle: csh; reg_id: Cardinal): PAnsiChar; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Return friendly name of an instruction in a string.
@@ -376,7 +376,7 @@ function cs_reg_name(handle: csh; reg_id: Cardinal): PAnsiChar; cdecl external L
 
  @return: string name of the instruction, or NULL if @insn_id is invalid.
 }
-function cs_insn_name(handle: csh; insn_id: Cardinal): PAnsiChar; cdecl external LIB_FILE;
+function cs_insn_name(handle: csh; insn_id: Cardinal): PAnsiChar; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Return friendly name of a group id (that an instruction can belong to)
@@ -390,7 +390,7 @@ function cs_insn_name(handle: csh; insn_id: Cardinal): PAnsiChar; cdecl external
 
  @return: string name of the group, or NULL if @group_id is invalid.
 }
-function cs_group_name(handle: csh; group_id: Cardinal): PAnsiChar; cdecl external LIB_FILE;
+function cs_group_name(handle: csh; group_id: Cardinal): PAnsiChar; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Check if a disassembled instruction belong to a particular group.
@@ -408,7 +408,7 @@ function cs_group_name(handle: csh; group_id: Cardinal): PAnsiChar; cdecl extern
 
  @return: true if this instruction indeed belongs to aboved group, or false otherwise.
 }
-function cs_insn_group(handle: csh; const insn: Pcs_insn; group_id: Cardinal): boolean; cdecl external LIB_FILE;
+function cs_insn_group(handle: csh; const insn: Pcs_insn; group_id: Cardinal): boolean; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Check if a disassembled instruction IMPLICITLY used a particular register.
@@ -425,7 +425,7 @@ function cs_insn_group(handle: csh; const insn: Pcs_insn; group_id: Cardinal): b
 
  @return: true if this instruction indeed implicitly used aboved register, or false otherwise.
 }
-function cs_reg_read(handle: csh; const insn: Pcs_insn; reg_id: Cardinal): boolean; cdecl external LIB_FILE;
+function cs_reg_read(handle: csh; const insn: Pcs_insn; reg_id: Cardinal): boolean; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Check if a disassembled instruction IMPLICITLY modified a particular register.
@@ -442,7 +442,7 @@ function cs_reg_read(handle: csh; const insn: Pcs_insn; reg_id: Cardinal): boole
 
  @return: true if this instruction indeed implicitly modified aboved register, or false otherwise.
 }
-function cs_reg_write(handle: csh; const insn: Pcs_insn; reg_id: Cardinal): boolean; cdecl external LIB_FILE;
+function cs_reg_write(handle: csh; const insn: Pcs_insn; reg_id: Cardinal): boolean; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Count the number of operands of a given type.
@@ -457,7 +457,7 @@ function cs_reg_write(handle: csh; const insn: Pcs_insn; reg_id: Cardinal): bool
  @return: number of operands of given type @op_type in instruction @insn,
  or -1 on failure.
 }
-function cs_op_count(handle: csh; const insn: Pcs_insn; op_type: Cardinal): integer; cdecl external LIB_FILE;
+function cs_op_count(handle: csh; const insn: Pcs_insn; op_type: Cardinal): integer; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 {
  Retrieve the position of operand of given type in <arch>.operands[] array.
@@ -475,7 +475,7 @@ function cs_op_count(handle: csh; const insn: Pcs_insn; op_type: Cardinal): inte
  @return: index of operand of given type @op_type in <arch>.operands[] array
  in instruction @insn, or -1 on failure.
 }
-function cs_op_index(handle: csh; const insn: Pcs_insn; op_type: Cardinal; position: Cardinal): integer; cdecl external LIB_FILE;
+function cs_op_index(handle: csh; const insn: Pcs_insn; op_type: Cardinal; position: Cardinal): integer; cdecl external {$IFNDEF CAPSTONE_STATIC}LIB_FILE{$ENDIF};
 
 // Calculate relative address for X86-64, given cs_insn structure
 function X86_REL_ADDR(insn: cs_insn): UInt64;
