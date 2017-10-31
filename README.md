@@ -6,8 +6,6 @@ This Unit has been tested with Free Pascal 2.6.4 and Delphi XE3.
 I was able to compile and run the test project on Linux Debian 7.8. I used quite dated 
 versions of Lazarus (0.9.30.4-6) and Free Pascal (2.6.0) with no problems.
 
-[Sad Sam](https://0x2a.wtf/projects/sad) uses this unit to disassemble binaries.
-
 ## License
 
 BSD
@@ -56,7 +54,3 @@ Lazarus
 
 Delphi
 : Open `test.dpr` or `test.dproj` in Delphi and click Compile.
-
-## Screenshot
-
-![Capstone](http://0x2a.wtf/content/projects/capstone.png "Capstone test program output")
