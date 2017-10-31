@@ -22,7 +22,7 @@ is incomplete, but it may give you an impression how to use it.
       
     var 
       disasm: TCapstone;
-      addr: Int64;
+      addr: UInt64;
       insn: TCsInsn;
       stream: TMemoryStream;
     begin
