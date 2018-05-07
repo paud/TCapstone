@@ -45,6 +45,8 @@ end;
 
 ## Compiling
 
+testing on delphi7 
+
 The Capstone DLL is *early bound*, so make sure it is in the applications 
 search path when you run it. On Windows this is preferably in the same directory 
 of the executeable. On Linux just compile and install the Capstone library.
