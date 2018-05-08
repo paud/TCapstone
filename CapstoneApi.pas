@@ -23,6 +23,8 @@ const
 {$endif}
 
 type
+  NativeUint=Cardinal;// Modified by simpower91  
+                     //SizeOf(NativeInt)=8,但32位系统需要4byte
   csh = NativeUInt;
   Pcsh = ^csh;
 

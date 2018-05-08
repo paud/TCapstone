@@ -147,10 +147,14 @@ begin
 end;
 
 function TCapstone.GetNext(var AAddr: UInt64; out AInsn: TCsInsn): boolean;
+var
+  i:integer;
 begin
   if FHandle = 0 then
-    Exit(false);
-
+  begin
+    result:=false;
+    Exit;
+  end;
   if (FInsn = nil) then
     FInsn := cs_malloc(FHandle);
 
@@ -162,6 +166,7 @@ begin
   AInsn.op_str := '';
 
   Result := cs_disasm_iter(FHandle, FCode, FSize, AAddr, FInsn);
+  //i := cs_disasm(FHandle, FCode, FSize-1, $1000,0, FInsn);
   if Result then begin
     AInsn.id := FInsn^.id;
     AInsn.address := FInsn^.address;
