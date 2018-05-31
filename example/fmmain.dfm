@@ -1,0 +1,67 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'DASM'
+  ClientHeight = 404
+  ClientWidth = 579
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Memo1: TMemo
+    Left = 8
+    Top = 8
+    Width = 563
+    Height = 305
+    ScrollBars = ssBoth
+    TabOrder = 0
+  end
+  object Button1: TButton
+    Left = 8
+    Top = 336
+    Width = 73
+    Height = 33
+    Caption = 'Button1'
+    TabOrder = 1
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 80
+    Top = 336
+    Width = 81
+    Height = 33
+    Caption = 'Button2'
+    TabOrder = 2
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 372
+    Top = 336
+    Width = 97
+    Height = 33
+    Caption = 'Button3'
+    TabOrder = 3
+  end
+  object Button4: TButton
+    Left = 464
+    Top = 336
+    Width = 107
+    Height = 33
+    Caption = 'Button4'
+    TabOrder = 4
+  end
+  object Edit1: TEdit
+    Left = 167
+    Top = 342
+    Width = 199
+    Height = 21
+    TabOrder = 5
+    Text = 'Edit1'
+  end
+end
