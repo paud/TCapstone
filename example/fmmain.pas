@@ -19,6 +19,8 @@ type
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -41,10 +43,12 @@ const
 
 function getEIP:Cardinal;
 asm
-  //mov eax,512
-  //db $e8,$0,$0,$0,$0
-  //mov rax,[rsp];
-  //add rax,-5
+{$IFDEF WIN64}
+  mov eax,512
+  db $e8,$0,$0,$0,$0
+  mov rax,[rsp];
+  add rax,-5
+{$ENDIF}
 end;
 
 {$R *.dfm}
@@ -59,17 +63,26 @@ var
   p:pointer;
 begin
   //self.test(1,2,3,4);
+{$IFDEF WIN32}
+  if (cs_open(Ord(CS_ARCH_X86), CS_MODE_32, @handle) <> CS_ERR_OK) then
+{$ENDIF}
+{$IFDEF WIN64}
   if (cs_open(Ord(CS_ARCH_X86), CS_MODE_64, @handle) <> CS_ERR_OK) then
+{$ENDIF}
      exit;
   l:=length(CODE);
   p:=@CODE[1];
   l:=512;
-  p:=Pointer(getEIP);
-  {asm
+{$IFDEF WIN32}
+  asm
     mov l,512
     db $e8,$0,$0,$0,$0
     pop p
-  end; }
+  end;
+{$ENDIF}
+{$IFDEF WIN64}
+  p:=Pointer(getEIP);
+{$ENDIF}
   Memo1.Lines.Add(floatToStr(compilerversion));
   Memo1.Lines.Add(IntToStr(l));
   //pinsn:=@insn[0];
@@ -86,15 +99,45 @@ end;
 
 procedure TForm1.Button2Click(Sender: TObject);
 var
+  i:Integer;
+  j:Cardinal;
   p:Pointer;
 begin
+  ihook.hookAddress(@TForm1.Button1Click,'Button1Click');
   p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxA');
-  ihook.hookAddress(p)
+  ihook.hookAddress(p,'MessageBoxA');
+  p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxW');
+  ihook.hookAddress(p,'MessageBoxW');
+  {gvm.pushadCopy;
+  for i:=0 to 7 do
+  begin
+    j:=popadRegistersBuff[i];
+    Memo1.Lines.Add(IntToHex(j,8));
+  end;}
+  //ihook.processorep;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+  MessageBoxW(0,'WWWWWWWWWWWWWWWWWWW','1',MB_OK);
+
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+begin
+  //MessageBoxA(0,'AAAAAAAAAAAA','fklsjfj4234',MB_OK);
+  ghook.getcontextFromAddr(0);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
+var
+  h:thandle;
 begin
   ihook:=TIHooKing.Create;
+  ihook.ContextHashList.AddObject('123456',self);
+  h:=LoadLibrary('user32.dll');
+  ihook.addNoHookSectionByHandle(h);
+  //ihook.addNoHookSectionByHandle(HInstance);
 end;
 
 procedure TForm1.test(i,j,k,l:Integer);
