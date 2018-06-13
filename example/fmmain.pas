@@ -16,11 +16,13 @@ type
     Button3: TButton;
     Button4: TButton;
     Edit1: TEdit;
+    Button5: TButton;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -125,8 +127,16 @@ end;
 
 procedure TForm1.Button4Click(Sender: TObject);
 begin
-  //MessageBoxA(0,'AAAAAAAAAAAA','fklsjfj4234',MB_OK);
-  ghook.getcontextFromAddr(0);
+  MessageBoxA(0,'AAAAAAAAAAAA','fklsjfj4234',MB_OK);
+  //ghook.getcontextFromAddr(0);
+  //gvm.stack[0]:=$12;
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+var
+  sl:TStringList;
+begin
+
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
