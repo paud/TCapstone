@@ -4,8 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
-  IHooKing64,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, IHookAgent,
+  IHooKing64,  SimVBS,
   Capstone,CapstoneApi;
 
 type
@@ -23,11 +23,13 @@ type
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
     { Public declarations }
     ihook:TIHooKing;
+    agent:TIHookAgent;
     procedure test(i,j,k,l:Integer);
   end;
 
@@ -97,6 +99,7 @@ begin
     insn:=pcs_insn(Integer(insn)+sizeof(cs_insn));
     Memo1.LineS.add(s);
   end;
+  MessageBox(0,'wwwww','ttttt',MB_OK);
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
@@ -135,19 +138,32 @@ end;
 procedure TForm1.Button5Click(Sender: TObject);
 var
   sl:TStringList;
+  vbs:TSimVBS;
 begin
+  agent.loadConfig('config.txt');
+  {vbs:=TSimVBS.Create;
+  vbs.loadScript('');
+  vbs.pretreat;
+  vbs.FScript.SaveToFile('e:\const.txt'); }
+end;
 
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  ihook.Free;
+  agent.Free;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 var
   h:thandle;
 begin
-  ihook:=TIHooKing.Create;
-  ihook.ContextHashList.AddObject('123456',self);
+  {}ihook:=TIHooKing.Create;
+  ihook.init;
   h:=LoadLibrary('user32.dll');
   ihook.addNoHookSectionByHandle(h);
   //ihook.addNoHookSectionByHandle(HInstance);
+  //agent:=TIHookAgent.Create;
+  //agent.loadConfig('config.txt');
 end;
 
 procedure TForm1.test(i,j,k,l:Integer);

@@ -1,6 +1,9 @@
 program inlineHookKingTest;
 
 uses
+{$IFDEF WIN32}
+  CheckMem,
+{$ENDIF}
   Vcl.Forms,
   fmmain in 'fmmain.pas' {Form1};
 
