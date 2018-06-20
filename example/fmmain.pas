@@ -112,7 +112,7 @@ begin
   p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxA');
   ihook.hookAddress(p,'MessageBoxA');
   p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxW');
-  ihook.hookAddress(p,'MessageBoxW');
+  ihook.hookAddress(p,'MessageBoxW',true);
   {gvm.pushadCopy;
   for i:=0 to 7 do
   begin
@@ -129,7 +129,17 @@ begin
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
+type
+  tp=procedure(a,b,c,d,e:Integer);stdcall;
+var
+  h:THandle;
+  p:tp;
 begin
+  //h:=LoadLibrary('Win32Project3.dll');
+  //p:=getprocaddress(h,PChar(1));
+  //p:=getprocaddress(h,'_test4@20');
+  //if Cardinal(@p)>0 then
+  //  p(1,2,3,4,5);
   MessageBoxA(0,'AAAAAAAAAAAA','fklsjfj4234',MB_OK);
   //ghook.getcontextFromAddr(0);
   //gvm.stack[0]:=$12;
@@ -141,6 +151,7 @@ var
   vbs:TSimVBS;
 begin
   agent.loadConfig('config.txt');
+  //loadlibrary('hooktest.dll');
   {vbs:=TSimVBS.Create;
   vbs.loadScript('');
   vbs.pretreat;
@@ -157,12 +168,12 @@ procedure TForm1.FormCreate(Sender: TObject);
 var
   h:thandle;
 begin
-  {}ihook:=TIHooKing.Create;
+  {ihook:=TIHooKing.Create;
   ihook.init;
   h:=LoadLibrary('user32.dll');
-  ihook.addNoHookSectionByHandle(h);
+  ihook.addNoHookSectionByHandle(h); }
   //ihook.addNoHookSectionByHandle(HInstance);
-  //agent:=TIHookAgent.Create;
+  agent:=TIHookAgent.Create;
   //agent.loadConfig('config.txt');
 end;
 

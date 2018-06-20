@@ -1,0 +1,4 @@
+Before:MessageBoxW
+After:MessageBoxW
+Before:MessageBoxA
+After:MessageBoxA
