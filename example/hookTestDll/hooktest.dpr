@@ -23,7 +23,10 @@ var
 
 
 function msgbox(h:THandle;cp:PChar;tt:PChar;style:integer):Integer; stdcall;
+var
+  p:PChar;
 begin
+  p:='8888';
   th:=h;
   tcp:=cp;
   ttt:=tt;

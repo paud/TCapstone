@@ -1,12 +1,9 @@
 [hooktest.dll] //可以装载多个记录器
 //apiName=fnName,fnNameAfter //将两个函数export,不带*表示经过整理参数，而且也不必和api原型一致，HOOK组件会管理堆栈。
-//apiName=*fnName,fnNameAfter //只要有“*”，无论在前后哪个位置，会自动清理掉“*”，代表后面两个函数直接接管hook前后，不经过参数托管，效率高，但是自己要保存管理调用前后的参数。
-//apiName=*&fnName,fnNameAfter //只要有“&”，无论在前后哪个位置，会自动清理掉“&”，代表要求iHooking记录logFile
+//apiName=*fnName,fnNameAfter //只要有“*”，代表后面两个函数直接接管hook前后，不经过参数托管，效率高，但是自己要保存管理调用前后的参数。
+//apiName=*&fnName,fnNameAfter //只要有“&”，代表要求iHooking记录logFile(文件名:hooklog.txt)
+// ~波浪符代表允许修改参数，该功能还在开发中
 
-//以下是需要Hook的API列表
+//以下是需要Hook的API列表，可以向后不断添加
 MessageBoxW=&msgbox,msgbox1
 MessageBoxA=&
-
-
-
-

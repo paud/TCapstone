@@ -4,8 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, IHookAgent,
-  IHooKing64,  SimVBS,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, IHookAgent,IHooKing64,
   Capstone,CapstoneApi;
 
 type
@@ -17,6 +16,7 @@ type
     Button4: TButton;
     Edit1: TEdit;
     Button5: TButton;
+    Button6: TButton;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -24,6 +24,7 @@ type
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button6Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -124,7 +125,7 @@ end;
 
 procedure TForm1.Button3Click(Sender: TObject);
 begin
-  MessageBoxW(0,'WWWWWWWWWWWWWWWWWWW','1',MB_OK);
+  MessageBoxW(0,'WWWWWWWWWWWWWWWWWWW','wwwwwwwwwwwwwwwwwwwwwwwwwwww',MB_OK);
 
 end;
 
@@ -148,14 +149,17 @@ end;
 procedure TForm1.Button5Click(Sender: TObject);
 var
   sl:TStringList;
-  vbs:TSimVBS;
 begin
   agent.loadConfig('config.txt');
   //loadlibrary('hooktest.dll');
-  {vbs:=TSimVBS.Create;
-  vbs.loadScript('');
-  vbs.pretreat;
-  vbs.FScript.SaveToFile('e:\const.txt'); }
+end;
+
+procedure TForm1.Button6Click(Sender: TObject);
+var
+  h:THandle;
+begin
+  h:=LoadLibrary('iHooking.dll');
+
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
