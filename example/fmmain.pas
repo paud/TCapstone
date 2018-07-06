@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, IHookAgent,IHooKing64,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, IHookAgent,IHooKing64,SiMath,
   Capstone,CapstoneApi;
 
 type
@@ -171,19 +171,41 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 var
   h:thandle;
+  i:Integer;
+  s:string;
 begin
-  {ihook:=TIHooKing.Create;
+  {}ihook:=TIHooKing.Create;
   ihook.init;
   h:=LoadLibrary('user32.dll');
-  ihook.addNoHookSectionByHandle(h); }
+  ihook.addNoHookSectionByHandle(h);
   //ihook.addNoHookSectionByHandle(HInstance);
-  agent:=TIHookAgent.Create;
+  //agent:=TIHookAgent.Create;
   //agent.loadConfig('config.txt');
+  //s:='aa';
+  //i:=SizeOf(s);
+  //ShowMessage(IntToStr(i));
+  test(1,2,3,4);
 end;
 
 procedure TForm1.test(i,j,k,l:Integer);
+var
+  s:string;
+  s1,s2:string;
+  ii:array of Integer;
+  sl:TStringList;
 begin
-  ShowMessage('a');
+  s:='aaa';
+  SetLength(ii,1);
+  ii[0]:=$123;
+  SetLength(ii,2);
+  ii[1]:=$567;
+  s1:='bbb';
+  try
+  s:=s+s1;
+  except
+
+  end;
+  ShowMessage(s);
 end;
 
 end.
