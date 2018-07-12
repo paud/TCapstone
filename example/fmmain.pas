@@ -17,6 +17,7 @@ type
     Edit1: TEdit;
     Button5: TButton;
     Button6: TButton;
+    Button7: TButton;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -25,6 +26,7 @@ type
     procedure Button5Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button6Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,6 +34,7 @@ type
     ihook:TIHooKing;
     agent:TIHookAgent;
     procedure test(i,j,k,l:Integer);
+    procedure jmptest;
   end;
 
 var
@@ -109,7 +112,8 @@ var
   j:Cardinal;
   p:Pointer;
 begin
-  ihook.hookAddress(@TForm1.Button1Click,'Button1Click');
+  //ihook.hookAddress(@TForm1.Button1Click,'Button1Click');
+  ihook.hookAddress(@TForm1.jmptest,'jmptest');
   p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxA');
   ihook.hookAddress(p,'MessageBoxA');
   p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxW');
@@ -149,7 +153,12 @@ end;
 procedure TForm1.Button5Click(Sender: TObject);
 var
   sl:TStringList;
+  h:thandle;
 begin
+  ihook:=TIHooKing.Create;
+  ihook.init;
+  h:=LoadLibrary('user32.dll');
+  ihook.addNoHookSectionByHandle(h);
   agent.loadConfig('config.txt');
   //loadlibrary('hooktest.dll');
 end;
@@ -160,6 +169,11 @@ var
 begin
   h:=LoadLibrary('iHooking.dll');
 
+end;
+
+procedure TForm1.Button7Click(Sender: TObject);
+begin
+  LoadLibrary(PChar(Edit1.Text));
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -174,17 +188,19 @@ var
   i:Integer;
   s:string;
 begin
-  {}ihook:=TIHooKing.Create;
-  ihook.init;
-  h:=LoadLibrary('user32.dll');
-  ihook.addNoHookSectionByHandle(h);
+  {}
   //ihook.addNoHookSectionByHandle(HInstance);
   //agent:=TIHookAgent.Create;
   //agent.loadConfig('config.txt');
   //s:='aa';
   //i:=SizeOf(s);
   //ShowMessage(IntToStr(i));
-  test(1,2,3,4);
+  //test(1,2,3,4);
+end;
+
+procedure TForm1.jmptest;
+asm
+  jmp TForm1.test
 end;
 
 procedure TForm1.test(i,j,k,l:Integer);
@@ -206,6 +222,7 @@ begin
 
   end;
   ShowMessage(s);
+  chlocal;
 end;
 
 end.

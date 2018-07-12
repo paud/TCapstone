@@ -65,7 +65,7 @@ object Form1: TForm1
     Width = 199
     Height = 21
     TabOrder = 5
-    Text = 'Edit1'
+    Text = 'inlineHookKingDll.dll'
   end
   object Button5: TButton
     Left = 336
@@ -84,5 +84,14 @@ object Form1: TForm1
     Caption = 'Button6'
     TabOrder = 7
     OnClick = Button6Click
+  end
+  object Button7: TButton
+    Left = 8
+    Top = 370
+    Width = 113
+    Height = 31
+    Caption = 'load_ihook_dll'
+    TabOrder = 8
+    OnClick = Button7Click
   end
 end
