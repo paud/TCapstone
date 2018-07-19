@@ -112,6 +112,8 @@ var
   j:Cardinal;
   p:Pointer;
 begin
+  ihook:=TIHooKing.Create();
+  ihook.init;
   //ihook.hookAddress(@TForm1.Button1Click,'Button1Click');
   ihook.hookAddress(@TForm1.jmptest,'jmptest');
   p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxA');
@@ -155,10 +157,11 @@ var
   sl:TStringList;
   h:thandle;
 begin
-  ihook:=TIHooKing.Create;
-  ihook.init;
-  h:=LoadLibrary('user32.dll');
-  ihook.addNoHookSectionByHandle(h);
+  //ihook:=TIHooKing.Create;
+  //ihook.init;
+  //h:=LoadLibrary('user32.dll');
+  //ihook.addNoHookSectionByHandle(h);
+  agent:=TIHookAgent.Create();
   agent.loadConfig('config.txt');
   //loadlibrary('hooktest.dll');
 end;
@@ -166,9 +169,13 @@ end;
 procedure TForm1.Button6Click(Sender: TObject);
 var
   h:THandle;
+  i:integer;
+  ars:arString;
 begin
-  h:=LoadLibrary('iHooking.dll');
-
+  //h:=LoadLibrary('iHooking.dll');
+  ars:=Split(',aaa',',');
+  i:=Length(ars);
+  ShowMessage(IntToStr(i));
 end;
 
 procedure TForm1.Button7Click(Sender: TObject);
