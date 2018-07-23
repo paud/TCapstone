@@ -185,8 +185,8 @@ end;
 
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  ihook.Free;
-  agent.Free;
+  //ihook.Free;
+  //agent.Free;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
