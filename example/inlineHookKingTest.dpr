@@ -13,11 +13,11 @@ var
  agent:TIHookAgent;
 
 begin
+  LoadLibrary('inlinehookkingdll.dll');
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  //LoadLibrary('inlineHookKingDll.dll');
-  agent := TIHookAgent.Create();
-  agent.loadConfig('config.txt');
+  //agent := TIHookAgent.Create();
+  //agent.loadConfig('config.txt');
   Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.
