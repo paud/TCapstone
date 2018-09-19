@@ -172,7 +172,7 @@ var
   i:integer;
   ars:arString;
 begin
-  //h:=LoadLibrary('iHooking.dll');
+  h:=LoadLibrary('monitor-x64.dll');
   ars:=Split(',aaa',',');
   i:=Length(ars);
   ShowMessage(IntToStr(i));
@@ -194,13 +194,14 @@ var
   h:thandle;
   i:Integer;
   s:string;
+  cxt:THookContext;
 begin
   {}
   //ihook.addNoHookSectionByHandle(HInstance);
   //agent:=TIHookAgent.Create;
   //agent.loadConfig('config.txt');
   //s:='aa';
-  //i:=SizeOf(s);
+  //i:=Integer(@(THookContext(0).logFile));//SizeOf();
   //ShowMessage(IntToStr(i));
   //test(1,2,3,4);
 end;
