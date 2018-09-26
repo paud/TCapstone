@@ -106,6 +106,12 @@ begin
   MessageBox(0,'wwwww','ttttt',MB_OK);
 end;
 
+function msgbox(h:thandle;txt:PWChar;tt:PChar;mb:Cardinal):Integer;stdcall;
+begin
+  txt:='0000000000000000000';
+  mb:=MB_YESNO;
+end;
+
 procedure TForm1.Button2Click(Sender: TObject);
 var
   i:Integer;
@@ -119,7 +125,7 @@ begin
   p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxA');
   ihook.hookAddress(p,'MessageBoxA');
   p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxW');
-  ihook.hookAddress(p,'MessageBoxW',true);
+  ihook.hookAddress(p,'MessageBoxW',true,nativeint(@msgbox),0,-1,-1,1);
   {gvm.pushadCopy;
   for i:=0 to 7 do
   begin
