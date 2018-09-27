@@ -1,2 +1,2 @@
 Before:MessageBoxW
-After:MessageBoxW:1
+After:MessageBoxW:111
