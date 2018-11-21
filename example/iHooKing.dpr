@@ -11,7 +11,7 @@ library iHooKing;
   using PChar or ShortString parameters. }
 
 uses
-  System.SysUtils, IHookAgent,
+  System.SysUtils, IHookAgent, SiMath,
   System.Classes;
 
 {$R *.res}

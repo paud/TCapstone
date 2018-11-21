@@ -169,7 +169,7 @@ begin
   //h:=LoadLibrary('user32.dll');
   //ihook.addNoHookSectionByHandle(h);
   agent:=TIHookAgent.Create();
-  agent.loadConfig('config.txt');
+  //agent.loadConfig('config.txt');
   //loadlibrary('hooktest.dll');
 end;
 

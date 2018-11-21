@@ -13,7 +13,7 @@ var
  agent:TIHookAgent;
 
 begin
-  //LoadLibrary('monitor-x64.dll');
+  //LoadLibrary('iHooKing.dll');
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   //agent := TIHookAgent.Create();
