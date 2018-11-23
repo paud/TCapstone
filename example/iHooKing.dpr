@@ -18,9 +18,19 @@ uses
 
 var
   agent:TIHookAgent;
+  exePath:string;
 
 begin
   agent:=tihookagent.Create('hooklog.txt');
   agent.FIHooKing.addNoHookSectionByHandle(HInstance);
-  agent.loadConfig('config.txt');
+  exePath:=GetExePath;
+  exepath:=ExtractFileName(exePath);
+  exepath:=GetLocal(exepath+'.cfg');
+  if FileExists(exePath) then
+  begin
+    agent.loadConfig(exepath);
+  end else
+  begin
+    agent.loadConfig('config.txt');
+  end;
 end.
