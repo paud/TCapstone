@@ -1,0 +1,122 @@
+getprocaddress
+ntprotectvirtualmemory
+00007FF81C87C200 E8FBFD0FE0       call $00007ff7fc97c000 //ntopenkeyex
+
+00007FF819599F40 E8BBF02CE0       call $00007ff7f9869000 //getlocaltime 'InternetWriteFile'
+
+00007FF81BB2EA50 E8ABF501E0       call $00007ff7fbb4e000 //couninitialize
+
+00007FF81C880B00 E8FBF400E0       call $00007ff7fc890000 memset
+
+00007FF8195C8160 E89BFE48E0       call $00007ff7f9a58000 //setfilepointer
+
+7ff8195dc010
+
+00007FF8195DC010 E8EBFF24E0       call $00007ff7f982c000 //getfilesize
+
+00007FF8195B7870 E88BF762E0       call $00007ff7f9be7000 localfree //WTSFreeMemory
+140703554041968
+
+00007FF81C87A0D0 E82BFF01E0       call $00007ff7fc89a000 //zwclose
+
+
+00007FF8195B2900 E8FBF63BE0       call $00007ff7f9972000 //loadlibraryexw
+
+‭7FF81C87A0D0‬
+
+$7ff8195b0620
+
+00007FF81C81A7D0 E82BF800E0       call $00007ff7fc82a000 //ldrgetdllhandle
+00007FF8195D4750 E8ABF82AE0       call $00007ff7f9884000 //getmodulefilename
+00007FF8195B0620 E8DBF908E0       call $00007ff7f9640000 //regopenkeyexw
+00007FF81C87A5D0 E82BFA20E0       call $00007ff7fca8a000 //ntopensection
+00007FF81C87A690 E86BF921E0       call $00007ff7fca9a000 //zwqueryattributesfile
+00007FF81C273D50 E8ABF21CE0       call $00007ff7fc443000 //gettickcount
+00007FF81C879FB0 E84BF028E0       call $00007ff7fcb09000 //zwreadfile
+00007FF81BF85FE0 E81BF05AE0       call $00007ff7fc535000 //sendmessagew 00007FF72FDB3D4E FF155C6F0100     call qword ptr [rel $00016f5c]
+
+7ff819599f40 //getlocaltime
+00007FF8195B0620 E8DBF908E0       call $00007ff7f9640000 //regopenkeyexw
+
+00007FF819593400 E8FBFB51E0       call $00007ff7f9ab3000 //lstrcmpiW
+00007FF81C87A3D0 E82BFC2DE0       call $00007ff7fcb5a000 //ntsetinformationfile
+00007FF8195B2AC0 E83BF539E0       call $00007ff7f9952000 //readfile 
+00007FF8195B1D20 E8DBF200E0       call $00007ff7f95c1000 //regclosekey
+
+00007FF81C87A670 E88BF90FE0       call $00007ff7fc97a000 //zwduplicateobject //ntduplicateobject
+
+00007FF8195B5F40 E8BBF020E0       call $00007ff7f97c5000 //getdrivetypew
+
+00007FF81C87A950 E8ABF630E0       call $00007ff7fcb8a000 //ntterminatethread
+00007FF81BF76C00 E8FBF311E0       call $00007ff7fc096000 //getwindowthreadprocessid
+00007FF8195DE7C0 E83BF842E0       call $00007ff7f9a0e000 //setunhandledexceptionfilter
+00007FF81C87A5B0 E84BFA24E0       call $00007ff7fcaca000 //rtlgetnativesysteminformation
+00007FF81C87A470 E88BFB2EE0       call $00007ff7fcb6a000 //terminateprocess
+00007FF81C87A110 E8EBFE22E0       call $00007ff7fcaaa000 //zwqueryinformationfile
+00007FF81BADEBC0 E83BF400E0       call $00007ff7fbaee000 //cocreateinstance
+00007FF81C87B4A0 E85BFB03E0       call $00007ff7fc8bb000 //ntcreatemutant
+00007FF81C87C6A0 E85BF920E0       call $00007ff7fca8c000 //zwqueryfullattributesfile
+00007FF8195E3200 E8FBFD21E0       call $00007ff7f9803000 //getfilesizeex
+00007FF81C87A830 E8CBF705E0       call $00007ff7fc8da000 //zwcreatesection
+
+00007FF81C87A550 E8ABFA19E0       call $00007ff7fca1a000 //ntopenfile
+00007FF81C87A990 E86BF601E0       call $00007ff7fc89a000 //zwcreatefile
+00007FF8195AFD10 E8EBF234E0       call $00007ff7f98ff000 //openprocess
+00007FF81C879FD0 E82BF00CE0       call $00007ff7fc949000 //zwdeviceiocontrolfile
+00007FF8195936B0 E84BF900E0       call $00007ff7f95a3000 //comparestringw
+00007FF81C87A530 E8CBFA0CE0       call $00007ff7fc94a000 //zwenumeratekey
+00007FF81C87A830 E8CBF704E0       call $00007ff7fc8ca000 //zwcreatesection
+00007FF8195DC010 E8EBFF21E0       call $00007ff7f97fc000 //getfilesize
+00007FF8195CAC10 E8EBF321E0       call $00007ff7f97ea000 //getfileinformationbyhandleex
+00007FF8195B9A20 E8DBF513E0       call $00007ff7f96f9000 //createmutexw
+00007FF81C87A590 E86BFA19E0       call $00007ff7fca1a000 //ntquerydirectoryfile
+00007FF81C87A690 E86BF918E0       call $00007ff7fca0a000 //zwqueryattributesfile
+00007FF81C273CB0 E84BF311E0       call $00007ff7fc393000 //deviceiocontrol
+00007FF8195E2A50 E8ABF525E0       call $00007ff7f9842000 //getvolumepathnamesforvolumenamew
+00007FF8195AE9B0 E84BF620E0       call $00007ff7f97be000 //getfileattributesw
+00007FF81BF7F140 E8BBFE10E0       call $00007ff7fc08f000 //getsystemmetrics
+00007FF81959B650 E8ABF936E0       call $00007ff7f990b000 //seterrormode
+
+outputdebugstring:
+00007FF81C87A470 E88BFB23E0       call $00007ff7fcaba000 //zwterminateprocess
+00007FF81BF78800 E8FBF703E0       call $00007ff7fbfb8000 //drawtextexw
+00007FF81C87A570 E88BFA07E0       call $00007ff7fc8fa000 //NtDelayExecution
+00007FF8199B17F0 E80BF800E0       call $00007ff7f99c1000 //userGetForegroundWindow
+00007FF8195B2900 E8FBF629E0       call $00007ff7f9852000 //loadlibraryexw
+00007FF81C87A130 E8CBFE14E0       call $00007ff7fc9ca000 //zwopenkey
+00007FF8195C5AC0 E83BF522E0       call $00007ff7f97f5000 //getsysteminfo
+00007FF81BF74710 E8EBF801E0       call $00007ff7fbf94000 //createwindowexw
+00007FF81BF775F0 E80BFA16E0       call $00007ff7fc0e7000 //postmessagew
+00007FF81C87A3F0 E80BFC12E0       call $00007ff7fc9aa000 //ntmapviewofsetion
+00007FF81C6C3590 E86BFA00E0       call $00007ff7fc6d3000 //uuidcreate
+00007FF81BF94600 E8FBF906E0       call $00007ff7fc004000 //findwindowexw
+00007FF81C277CD8 E823F318E0       call $00007ff7fc407000 //rtlcomparememory //GetSystemDirectoryW
+00007FF81BF9D490 E86BFB0FE0       call $00007ff7fc09d000 //openclipboard
+00007ff81bf9e220                                         //closeclipboard
+00007FF8195EF8B0 E84BF70CE0       call $00007ff7f96bf000 //createActCtxW
+00007FF81C278410 E8EBFB0EE0       call $00007ff7fc368000 //createthread
+00007FF8195B9330 E8CBFC14E0       call $00007ff7f9709000 //CreateRemoteThreadEx
+00007FF81C87B640 E8BBF905E0       call $00007ff7fc8db000 //NtCreateThreadEx
+00007FF81BB2ECA0 E85BF300E0       call $00007ff7fbb3e000 //CoInitializeEx
+00007FF8195A0DB0 E84BF218E0       call $00007ff7f9730000 //FindResourceExW
+00007FF8195A0D30 E8CBF226E0       call $00007ff7f9810000 //LoadResource
+00007FF8195D9D10 E8EBF22AE0       call $00007ff7f9889000 //SearchPathW
+00007FF81C87A9F0 E80BF611E0       call $00007ff7fc99a000 //NtOpenDirectoryObject
+00007FF81BF90E50 E8ABF109E0       call $00007ff7fc030000 //GetKeyState
+00007FF81959BDC0 E83BF23BE0       call $00007ff7f995b000 //LoadStringW
+00007FF8199B1B50 E8ABF402E0       call $00007ff7f99e1000 //NtUserShowWindow
+00007FF8195B4870 E88BF711E0       call $00007ff7f96d4000 //CreateFileW
+00007FF8195A1050 E8ABFF33E0       call $00007ff7f98e1000 //SizeofResource
+00007FF81C87A430 E8CBFB1FE0       call $00007ff7fca7a000 //ZwUnmapViewOfSection
+00007FF8195AE750 E8ABF801E0       call $00007ff7f95ce000 //regopenkeyexA
+00007FF8195A8C10 E8EBF323E0       call $00007ff7f97e8000 //IsDebuggerPresent
+
+
+
+
+new(寻找真正的重入):
+00007FF8195936B0 E84BF911E0       call $00007ff7f96b3000 //CompareStringW在hashlist.find中用到
+00007FF81C87C200 E8FBFD0FE0       call $00007ff7fc97c000 //ntopenkeyex在outputdebugstringw中用到
+00007FF81C880B00 E8FBF400E0       call $00007ff7fc890000 //memset字符串操作相关可能
+00007FF81C87A0D0 E82BFF01E0       call $00007ff7fc89a000 //ntclose ?可能跟ntopenkeyex相关，但未必重入
+MultiByteToWideChar
