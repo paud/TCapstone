@@ -113,7 +113,6 @@ outputdebugstring:
 
 
 
-
 new(寻找真正的重入):
 00007FF8195936B0 E84BF911E0       call $00007ff7f96b3000 //CompareStringW在hashlist.find中用到
 00007FF81C87C200 E8FBFD0FE0       call $00007ff7fc97c000 //ntopenkeyex在outputdebugstringw中用到
