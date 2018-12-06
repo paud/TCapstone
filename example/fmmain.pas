@@ -182,10 +182,11 @@ var
   i:integer;
   ars:arString;
 begin
-  h:=LoadLibrary('monitor-x64.dll');
-  ars:=Split(',aaa',',');
-  i:=Length(ars);
-  ShowMessage(IntToStr(i));
+  //h:=LoadLibrary('monitor-x64.dll');
+  //ars:=Split(',aaa',',');
+  //i:=Length(ars);
+  h:=GetModuleHandle(nil);
+  ShowMessage(IntToStr(h));
 end;
 
 procedure TForm1.Button7Click(Sender: TObject);
