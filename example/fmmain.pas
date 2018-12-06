@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, IHookAgent,IHooKing64,SiMath,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, IHookAgent,IHooKing64,SiMath, GUIStatus,
   Capstone,CapstoneApi;
 
 type
@@ -27,14 +27,17 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button6Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
+    gs:TGUIStatus;
   public
     { Public declarations }
     ihook:TIHooKing;
     agent:TIHookAgent;
     procedure test(i,j,k,l:Integer);
     procedure jmptest;
+
   end;
 
 var
@@ -192,6 +195,8 @@ end;
 
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  gs.SaveToFile();
+  gs.Free;
   //ihook.Free;
   //agent.Free;
 end;
@@ -203,6 +208,8 @@ var
   s:string;
   cxt:THookContext;
 begin
+  gs:=TGUIStatus.Create(nil);
+  gs.Add(Edit1);
   {}
   //ihook.addNoHookSectionByHandle(HInstance);
   //agent:=TIHookAgent.Create;
@@ -211,6 +218,11 @@ begin
   //i:=Integer(@(THookContext(0).logFile));//SizeOf();
   //ShowMessage(IntToStr(i));
   //test(1,2,3,4);
+end;
+
+procedure TForm1.FormShow(Sender: TObject);
+begin
+  gs.LoadFromFile();
 end;
 
 procedure TForm1.jmptest;

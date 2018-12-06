@@ -13,6 +13,7 @@ object Form1: TForm1
   OldCreateOrder = False
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Memo1: TMemo
@@ -65,7 +66,7 @@ object Form1: TForm1
     Width = 199
     Height = 21
     TabOrder = 5
-    Text = 'inlineHookKingDll.dll'
+    Text = 'ihooking.dll'
   end
   object Button5: TButton
     Left = 336

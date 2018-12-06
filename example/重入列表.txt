@@ -119,3 +119,8 @@ new(寻找真正的重入):
 00007FF81C880B00 E8FBF400E0       call $00007ff7fc890000 //memset字符串操作相关可能
 00007FF81C87A0D0 E82BFF01E0       call $00007ff7fc89a000 //ntclose ?可能跟ntopenkeyex相关，但未必重入
 MultiByteToWideChar
+
+
+
+debug createprocessinternalw:
+00007FFF8A128CD0 E82BF325E0       call $00007fff6a388000
