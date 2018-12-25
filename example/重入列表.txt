@@ -1,4 +1,4 @@
-getprocaddress
+﻿getprocaddress
 ntprotectvirtualmemory
 00007FF81C87C200 E8FBFD0FE0       call $00007ff7fc97c000 //ntopenkeyex
 
@@ -110,6 +110,11 @@ outputdebugstring:
 00007FF81C87A430 E8CBFB1FE0       call $00007ff7fca7a000 //ZwUnmapViewOfSection
 00007FF8195AE750 E8ABF801E0       call $00007ff7f95ce000 //regopenkeyexA
 00007FF8195A8C10 E8EBF323E0       call $00007ff7f97e8000 //IsDebuggerPresent
+00007FF9EC5D8CD0 E82BF348E0       call $00007ff9cca68000 //outputdebugstringA
+00007FF9EF69AA70 E88BF50EE0       call $00007ff9cf78a000 //ntdeviceiocontrolfile
+00007FF9EC5D8D45 E8D6150000       call $00007ff9ec5da320 //raiseException
+00007FF9EF69E2D8 0F1F840000000000 db $0f $1f $84 $00 $00 $00 $00 $00
+00007FF9EF69A440 4053             push rbx  //rtlraisestatus
 
 
 
