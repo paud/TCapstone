@@ -111,6 +111,7 @@ end;
 
 function msgbox(h:thandle;txt:PWChar;tt:PChar;mb:Cardinal):Integer;stdcall;
 begin
+  ShowMessage(txt);
   txt:='0000000000000000000';
   mb:=MB_YESNO;
   result:=111;
@@ -129,7 +130,7 @@ begin
   p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxA');
   ihook.hookAddress(p,'MessageBoxA');
   p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxW');
-  ihook.hookAddress(p,'MessageBoxW',true,nativeint(@msgbox),nativeint(@msgbox),-1,-1,1);  //nativeint(@msgbox)
+  ihook.hookAddress(p,'MessageBoxW',true,nativeint(@msgbox),nativeint(@msgbox),-1,-1,1,1);  //nativeint(@msgbox)
   {gvm.pushadCopy;
   for i:=0 to 7 do
   begin
