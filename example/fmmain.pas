@@ -130,7 +130,8 @@ begin
   p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxA');
   ihook.hookAddress(p,'MessageBoxA');
   p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxW');
-  ihook.hookAddress(p,'MessageBoxW',true,nativeint(@msgbox),nativeint(@msgbox),-1,-1,1,1);  //nativeint(@msgbox)
+  ihook.hookAddress(p,'MessageBoxW',true,nativeint(@msgbox),nativeint(@msgbox),-1,-1,1,0);  //nativeint(@msgbox)
+  //ihook.addNoHookSectionByHandle(GetModuleHandle(nil));
   {gvm.pushadCopy;
   for i:=0 to 7 do
   begin

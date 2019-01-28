@@ -1,2 +1,0 @@
-MessageBoxW:before
-MessageBoxW:After:6F

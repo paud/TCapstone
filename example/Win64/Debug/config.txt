@@ -1,4 +1,4 @@
 [hookmain]
-[monitor-x64.dll]
-
+[wmi_com_hook_plugin.dll]
+!begin1
 KernelBase.CreateProcessInternalW=$#nofunc,New_KernelBase_CreateProcessInternalW
