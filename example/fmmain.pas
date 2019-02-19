@@ -142,9 +142,11 @@ begin
 end;
 
 procedure TForm1.Button3Click(Sender: TObject);
+var
+  i:integer;
 begin
-  MessageBoxW(0,'WWWWWWWWWWWWWWWWWWW','wwwwwwwwwwwwwwwwwwwwwwwwwwww',MB_OK);
-
+  i:=MessageBoxW(0,'WWWWWWWWWWWWWWWWWWW','wwwwwwwwwwwwwwwwwwwwwwwwwwww',MB_OK);
+  ShowMessage(IntToStr(i));
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
