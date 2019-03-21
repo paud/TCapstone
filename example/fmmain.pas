@@ -110,11 +110,14 @@ begin
 end;
 
 function msgbox(h:thandle;txt:PWChar;tt:PChar;mb:Cardinal):Integer;stdcall;
+var
+  i:Integer;
 begin
-  ShowMessage(txt);
+  i:=getResult;
+  result:=i;
+  //ShowMessage(txt);
   txt:='0000000000000000000';
   mb:=MB_YESNO;
-  result:=111;
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
