@@ -18,5 +18,5 @@ uses
 
 
 begin
-  threadCall(init);
+  //threadCall(init);
 end.

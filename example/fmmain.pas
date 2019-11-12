@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, IHookAgent,IHooKing64,SiMath, GUIStatus,
-  Capstone,CapstoneApi;
+  Capstone,CapstoneApi,AddShell,siMathEnc;
 
 type
   TForm1 = class(TForm)
@@ -111,12 +111,17 @@ end;
 
 function msgbox(h:thandle;txt:PWChar;tt:PChar;mb:Cardinal):Integer;stdcall;
 var
-  i:Integer;
+  i:NativeUInt;
+  c:pchar;
 begin
   i:=getResult;
+  //i:=nativeuint(Form1.ihook.getReturnAddr);
+  //i:=Form1.ihook.getCallerSP;
   result:=i;
+  MessageBoxW(0,txt,tt,MB_YESNOCANCEL);
   //ShowMessage(txt);
-  txt:='0000000000000000000';
+  c:='0000000000000000000';
+  mmovs(txt,c,Length(c));
   mb:=MB_YESNO;
 end;
 
@@ -129,11 +134,13 @@ begin
   ihook:=TIHooKing.Create();
   ihook.init;
   //ihook.hookAddress(@TForm1.Button1Click,'Button1Click');
-  ihook.hookAddress(@TForm1.jmptest,'jmptest');
+  //ihook.hookAddress(@TForm1.jmptest,'jmptest');
   p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxA');
   ihook.hookAddress(p,'MessageBoxA');
   p:=GetProcAddress(LoadLibrary('user32.dll'),'MessageBoxW');
-  ihook.hookAddress(p,'MessageBoxW',true,nativeint(@msgbox),nativeint(@msgbox),-1,-1,1,0);  //nativeint(@msgbox)
+  ihook.hookAddress(p,'MessageBoxW',true,nativeint(@msgbox),nativeint(@msgbox),-1,-1,0,0);  //nativeint(@msgbox)
+  p:=GetProcAddress(LoadLibrary('user32.dll'),'FindWindowExA');
+  ihook.hookAddress(p,'FindWindowExA',true,nativeint(@msgbox),nativeint(@msgbox),-1,-1,0,0);  //nativeint(@msgbox)
   //ihook.addNoHookSectionByHandle(GetModuleHandle(nil));
   {gvm.pushadCopy;
   for i:=0 to 7 do
@@ -147,9 +154,14 @@ end;
 procedure TForm1.Button3Click(Sender: TObject);
 var
   i:integer;
+  txt:array[0..255] of byte;
+  c:pchar;
 begin
-  i:=MessageBoxW(0,'WWWWWWWWWWWWWWWWWWW','wwwwwwwwwwwwwwwwwwwwwwwwwwww',MB_OK);
-  ShowMessage(IntToStr(i));
+  FillMemory(@txt,256,0);
+  c:=PChar('txtWWWWWWWWWWWWWWWWWWWtxt');
+  mmovs(@Txt,c,Length(c)*2);
+  i:=MessageBoxW(0,@txt,'wwwwwwwwwwwwwwwwwwwwwwwwwwww',MB_OK);
+  ShowMessage(IntToStr(i)+PChar(@txt));
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
@@ -188,12 +200,31 @@ var
   h:THandle;
   i:integer;
   ars:arString;
+  pc,pc1:PAnsiChar;
+  s:AnsiString;
 begin
+  pc:=#$42#$00#$00#$00#$48#$89#$4c#$24#$08#$48#$83#$ec#$38#$c6#$44#$24#$20#$4f#$c6#$44#$24#$21#$4b#$c6
+    +#$44#$24#$22#$00#$b8#$08#$00#$00#$00#$48#$6b#$c0#$00#$45#$33#$c9#$4c#$8d#$44#$24#$20#$48#$8d#$54#$24#$20#$33
+    +#$c9#$4c#$8b#$54#$24#$40#$41#$ff#$14#$02#$48#$83#$c4#$38#$c3;
+  //s:=pc;
+  SetLength(s,$42);
+  mmovs(@s[1],pc,$42);
+  Memo1.Lines.Add(strtoasc(s));
+  pc1:=PAnsiChar(roundEncLoop(Pbyte(pc),$42,91024));
+  mmovs(@s[1],pc1,$42);
+  //s:=pc1;
+  Memo1.Lines.Add(StrtoAscEx(s,',0x',0));
+  pc1:=PAnsiChar(roundDecLoop(Pbyte(pc1),$42,91024));
+  mmovs(@s[1],pc1,$42);
+  Memo1.Lines.Add(strtoasc(s));
+  //if ($Ea in [$E8,$E9,$EB,$74,$77,$72,$7F,$7C]) then //看是否有相对跳转
+  //  ShowMessage('a');
+  //FindWindowExA(0,0,0,0);
   //h:=LoadLibrary('monitor-x64.dll');
   //ars:=Split(',aaa',',');
   //i:=Length(ars);
-  h:=GetModuleHandle(nil);
-  ShowMessage(IntToStr(h));
+  //h:=GetModuleHandle(nil);
+  //ShowMessage(IntToStr(h));
 end;
 
 procedure TForm1.Button7Click(Sender: TObject);
