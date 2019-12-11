@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, IHookAgent,IHooKing64,SiMath, GUIStatus,
-  Capstone,CapstoneApi,AddShell,siMathEnc;
+  Capstone,CapstoneApi,AddShell,siMathEnc,rsa,SPKMUtils,simd5;
 
 type
   TForm1 = class(TForm)
@@ -196,13 +196,40 @@ begin
 end;
 
 procedure TForm1.Button6Click(Sender: TObject);
+type
+  tPc = ^Cardinal;
+  tac = array of Cardinal;
 var
   h:THandle;
   i:integer;
   ars:arString;
   pc,pc1:PAnsiChar;
-  s:AnsiString;
+  s,s1,s2:AnsiString;
+  b:TBase64;
+  pb:PByte;
+  ac:tpc;
+  arc:array[0..1] of Cardinal;
+  p:pointer;
+  aa:NativeUInt;
 begin
+  //getBasePointer(@p);
+  //testRSA;
+  //testmd5;
+  p:=getBasePointer;
+  testImportSPKM;
+
+  Exit;
+
+
+
+  b:=TBase64.Create();
+  s:=StringReplace(Memo1.Lines.Text,#13#10,'',[rfReplaceAll]);
+  //s1:=b.encode(@s[1],Length(s));
+  pb:=b.decode(s,i);
+  SetLength(s2,i);
+  mmcpy(@S2[1],pb,i);
+  SiMath.msgbox(s2);
+  exit;
   pc:=#$42#$00#$00#$00#$48#$89#$4c#$24#$08#$48#$83#$ec#$38#$c6#$44#$24#$20#$4f#$c6#$44#$24#$21#$4b#$c6
     +#$44#$24#$22#$00#$b8#$08#$00#$00#$00#$48#$6b#$c0#$00#$45#$33#$c9#$4c#$8d#$44#$24#$20#$48#$8d#$54#$24#$20#$33
     +#$c9#$4c#$8b#$54#$24#$40#$41#$ff#$14#$02#$48#$83#$c4#$38#$c3;

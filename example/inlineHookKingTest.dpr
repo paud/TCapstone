@@ -1,10 +1,12 @@
 program inlineHookKingTest;
 
 uses
-{$IFDEF WIN32}
+  {$IFDEF WIN32}
   CheckMem,
-{$ENDIF}
-  Vcl.Forms,windows,IHookAgent,
+  {$ENDIF }
+  Vcl.Forms,
+  windows,
+  IHookAgent,
   fmmain in 'fmmain.pas' {Form1};
 
 {$R *.res}
